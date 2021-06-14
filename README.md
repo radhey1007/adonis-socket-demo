@@ -31,4 +31,33 @@ adonis migration:run
 ```
 
 
-// Refrence Link : https://legacy.adonisjs.com/docs/4.1/websocket#_basic_example
+Refrence Link : https://legacy.adonisjs.com/docs/4.1/websocket#_basic_example
+
+
+Setup instructions for @adonisjs/websocket
+
+Register provider
+The provider must be registered inside start/app.js file.
+
+const providers = [
+  '@adonisjs/websocket/providers/WsProvider'
+]
+Channels
+The next step is to open start/socket.js and register websocket channels.
+
+const Ws = use('Ws')
+
+Ws.channel('chat', ({ socket }) => {
+  console.log('new socket joined %s', socket.id)
+})
+Middleware
+The middleware for websocket are kept in the start/wsKernel.js file.
+
+const Ws = use('Ws')
+
+const globalMiddleware = []
+const namedMiddleware = {}
+
+Ws
+  .registerGlobal(globalMiddleware)
+  .registerNamed(namedMiddleware)
